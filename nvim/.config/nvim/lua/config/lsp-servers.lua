@@ -5,7 +5,13 @@ local M = {}
 --  See `:help lsp-config` for information about keys and how to configure
 ---@type table<string, vim.lsp.Config>
 M.servers = {
-	clangd = {},
+	clangd = {
+		cmd = {
+			'clangd',
+			'--background-index',
+			'--query-driver=/usr/lib64/ccache/g++,/usr/lib64/ccache/gcc',
+		},
+	},
 	ty = {},
 	-- gopls = {},
 	-- pyright = {},
