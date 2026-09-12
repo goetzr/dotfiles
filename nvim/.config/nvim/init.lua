@@ -3,6 +3,8 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
 require("config.lazy")
-require("config.colorscheme")
 require("config.options")
+require("config.keymaps")
+require("config.diagnostics")
+require("config.colorscheme")
 require("config.lsp")

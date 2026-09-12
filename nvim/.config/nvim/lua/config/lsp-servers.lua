@@ -9,7 +9,7 @@ M.servers = {
 		cmd = {
 			'clangd',
 			'--background-index',
-			'--query-driver=/usr/lib64/ccache/g++,/usr/lib64/ccache/gcc',
+			'--query-driver=/usr/lib64/ccache/c++,/usr/lib64/ccache/g++,/usr/lib64/ccache/gcc',
 		},
 	},
 	ty = {},
