@@ -28,3 +28,15 @@ vim.keymap.set("n", "<left>", '<cmd>echo "Use h to move!!"<CR>')
 vim.keymap.set("n", "<right>", '<cmd>echo "Use l to move!!"<CR>')
 vim.keymap.set("n", "<up>", '<cmd>echo "Use k to move!!"<CR>')
 vim.keymap.set("n", "<down>", '<cmd>echo "Use j to move!!"<CR>')
+
+-- Keep the delete (d) command functioning as a traditional "cut" command.
+-- However, when typing over text using the substitute (s), change (c), or x commands,
+-- route the text to the black hole register ("_) so that text doesn't replace
+-- the text on the clipboard.
+-- NOTE: The substitute (s) command is set to a NOP by the mini.surround plugin.
+-- NOTE: The substitute (S) command is a synonym for the change line (cc) command.
+vim.keymap.set({ "n", "x" }, "S", '"_S', { desc = "Substitute line without copying" })
+vim.keymap.set({ "n", "x" }, "c", '"_c', { desc = "Change without copying" })
+vim.keymap.set("n", "C", '"_C', { desc = "Change to end of line without copying" })
+vim.keymap.set("n", "cc", '"_cc', { desc = "Change line without copying" })
+vim.keymap.set({ "n", "x" }, "x", '"_x', { desc = "Delete character without copying" })
