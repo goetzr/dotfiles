@@ -7,12 +7,13 @@ local M = {}
 M.servers = {
 	clangd = {
 		cmd = {
-			'clangd',
-			'--background-index',
-			'--query-driver=/usr/lib64/ccache/c++,/usr/lib64/ccache/g++,/usr/lib64/ccache/gcc',
+			"clangd",
+			"--background-index",
+			"--query-driver=/usr/lib64/ccache/c++,/usr/lib64/ccache/g++,/usr/lib64/ccache/gcc",
 		},
 	},
 	ty = {},
+	neocmake = {},
 	-- gopls = {},
 	-- pyright = {},
 	-- rust_analyzer = {},
@@ -22,9 +23,7 @@ M.servers = {
 	--
 	-- But for many setups, the LSP (`ts_ls`) will work just fine
 	-- ts_ls = {},
-
 	stylua = {}, -- Used to format Lua code
-
 	-- Special Lua Config, as recommended by neovim help docs
 	lua_ls = {
 		on_init = function(client)
@@ -32,20 +31,25 @@ M.servers = {
 
 			if client.workspace_folders then
 				local path = client.workspace_folders[1].name
-				if path ~= vim.fn.stdpath 'config' and (vim.uv.fs_stat(path .. '/.luarc.json') or vim.uv.fs_stat(path .. '/.luarc.jsonc')) then return end
+				if
+					path ~= vim.fn.stdpath("config")
+					and (vim.uv.fs_stat(path .. "/.luarc.json") or vim.uv.fs_stat(path .. "/.luarc.jsonc"))
+				then
+					return
+				end
 			end
 
 			local current_settings = client.config.settings --[[@as lspconfig.settings.lua_ls]]
-			client.config.settings.Lua = vim.tbl_deep_extend('force', current_settings.Lua, {
+			client.config.settings.Lua = vim.tbl_deep_extend("force", current_settings.Lua, {
 				runtime = {
-					version = 'LuaJIT',
-					path = { 'lua/?.lua', 'lua/?/init.lua' },
+					version = "LuaJIT",
+					path = { "lua/?.lua", "lua/?/init.lua" },
 				},
 				workspace = {
 					checkThirdParty = false,
 					-- NOTE: this is a lot slower and will cause issues when working on your own configuration.
 					--  See https://github.com/neovim/nvim-lspconfig/issues/3189
-					library = vim.api.nvim_get_runtime_file('', true),
+					library = vim.api.nvim_get_runtime_file("", true),
 				},
 			})
 		end,
